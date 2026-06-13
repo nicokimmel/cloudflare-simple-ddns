@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -71,6 +72,8 @@ type UpsertRecordRequest struct {
 	Proxied bool   `json:"proxied"`
 }
 
+var hexTokenPattern = regexp.MustCompile(`^[0-9a-fA-F]+$`)
+
 func NewClient(token string, timeout time.Duration) *Client {
 	return &Client{
 		baseURL: BaseURL,
@@ -100,6 +103,18 @@ func (c *Client) ListZones(ctx context.Context) ([]Zone, error) {
 	}
 
 	return zones, nil
+}
+
+func (c *Client) VerifyToken(ctx context.Context) error {
+	var response objectResponse[map[string]any]
+	endpoint := fmt.Sprintf("%s/user/tokens/verify", c.baseURL)
+	if err := c.doJSON(ctx, http.MethodGet, endpoint, nil, &response); err != nil {
+		if LooksLikeGlobalAPIKey(c.token) {
+			return fmt.Errorf("%w; CLOUDFLARE_API_TOKEN looks like a Global API Key, but this application requires a Cloudflare API Token", err)
+		}
+		return err
+	}
+	return nil
 }
 
 func (c *Client) ListDNSRecords(ctx context.Context, zoneID, recordType, name string) ([]DNSRecord, error) {
@@ -231,4 +246,9 @@ func errorsText(errors []apiError) string {
 
 func NormalizeRecordName(name string) string {
 	return strings.ToLower(strings.TrimSpace(name))
+}
+
+func LooksLikeGlobalAPIKey(value string) bool {
+	trimmed := strings.TrimSpace(value)
+	return (len(trimmed) == 37 || len(trimmed) == 40) && hexTokenPattern.MatchString(trimmed)
 }

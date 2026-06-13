@@ -112,6 +112,17 @@ func TestCreateReturnsCloudflareError(t *testing.T) {
 	}
 }
 
+func TestLooksLikeGlobalAPIKey(t *testing.T) {
+	t.Parallel()
+
+	if !LooksLikeGlobalAPIKey("c894ccffb53b2b6bbd5d9644ccb0c7d78cfe0") {
+		t.Fatal("LooksLikeGlobalAPIKey returned false, want true")
+	}
+	if LooksLikeGlobalAPIKey("this-is-an-api-token-not-a-global-key") {
+		t.Fatal("LooksLikeGlobalAPIKey returned true, want false")
+	}
+}
+
 func newIPv4TestServer(t *testing.T, handler http.Handler) *httptest.Server {
 	t.Helper()
 

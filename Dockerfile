@@ -10,7 +10,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -buildvcs=false -trimpath -ld
 
 FROM alpine:3.22
 
-RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache ca-certificates tzdata
 
 WORKDIR /app
 
