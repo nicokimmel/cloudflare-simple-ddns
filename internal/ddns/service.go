@@ -262,7 +262,7 @@ func (s *Service) logger() *slog.Logger {
 }
 
 func logSummary(logger *slog.Logger, summary Summary) {
-	logger.Info("sync summary",
+	logger.Info("summary",
 		"total", summary.Total,
 		"created", summary.Created,
 		"updated", summary.Updated,
