@@ -1,0 +1,11 @@
+services:
+  cloudflare-simple-ddns:
+    build: .
+    container_name: cloudflare-simple-ddns
+    restart: unless-stopped
+    user: "1000:1000"
+    environment:
+      CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
+      RUN_INTERVAL: 15m
+    volumes:
+      - ./config:/config:ro
