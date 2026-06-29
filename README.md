@@ -6,9 +6,9 @@
 
 ```json
 [
-  { "domain":"example.com","proxied":false,"ip_version":4 },
-  { "domain":"*.example.com","proxied":true,"ip_version":4 },
-  { "domain":"ipv6.example.com","proxied":false,"ip_version":6 }
+  { "domain": "example.com", "proxied": false, "ip_version": 4 },
+  { "domain": "*.example.com", "proxied": true, "ip_version": 4 },
+  { "domain": "ipv6.example.com", "proxied": false, "ip_version": 6 }
 ]
 ```
 
