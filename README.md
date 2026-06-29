@@ -1,8 +1,8 @@
 # cloudflare-simple-ddns
 
-`cloudflare-simple-ddns` ist eine kleine selbst gehostete Go-Anwendung, die in festen Intervallen die öffentliche IPv4- und/oder IPv6-Adresse des Hosts ermittelt und die passenden Cloudflare-DNS-Records aktualisiert.
+`cloudflare-simple-ddns` is a small self-hosted Go application that periodically detects the host's public IPv4 and/or IPv6 address and updates the corresponding Cloudflare DNS records.
 
-## Beispiel `domains.json`
+## Example `domains.json`
 
 ```json
 [
@@ -12,11 +12,11 @@
 ]
 ```
 
-Optional kann jeder Eintrag zusätzlich `ttl` enthalten. Ohne Angabe wird `1` verwendet, also Cloudflare Auto TTL.
+Each entry may optionally include `ttl`. If omitted, `1` is used, which means Cloudflare Auto TTL.
 
-Gültig sind `ttl=1` oder Werte im Cloudflare-Bereich `60` bis `86400`.
+Valid values are `ttl=1` or values within Cloudflare's supported range from `60` to `86400`.
 
-## Beispiel `docker-compose.yaml`
+## Example `docker-compose.yaml`
 
 ```yaml
 services:
@@ -35,17 +35,17 @@ services:
 
 ## Environment Variables
 
-- `CLOUDFLARE_API_TOKEN`: Wird für `Authorization: Bearer ...` gegen die Cloudflare API verwendet.
-- `RUN_INTERVAL`: Unterstützt Go-Duration-Syntax wie `30s`, `5m`, `15m` oder `1h`.
+* `CLOUDFLARE_API_TOKEN`: Used as `Authorization: Bearer ...` when calling the Cloudflare API.
+* `RUN_INTERVAL`: Supports Go duration syntax such as `30s`, `5m`, `15m`, or `1h`.
 
-## Benötigte Cloudflare-Token-Rechte
+## Required Cloudflare Token Permissions
 
-- `Zone / Zone / Read`
-- `Zone / DNS / Edit`
+* `Zone / Zone / Read`
+* `Zone / DNS / Edit`
 
-Der Token sollte nur auf die tatsächlich betroffenen Zonen eingeschränkt werden.
+The token should be restricted to only the zones that actually need to be updated.
 
-## Start
+## Getting Started
 
 ```bash
 cp .env.example .env
