@@ -6,9 +6,9 @@
 
 ```json
 [
-  {"domain":"example.com","proxied":false,"ip_version":4},
-  {"domain":"*.example.com","proxied":true,"ip_version":4},
-  {"domain":"ipv6.example.com","proxied":false,"ip_version":6}
+  { "domain":"example.com","proxied":false,"ip_version":4 },
+  { "domain":"*.example.com","proxied":true,"ip_version":4 },
+  { "domain":"ipv6.example.com","proxied":false,"ip_version":6 }
 ]
 ```
 
@@ -30,7 +30,7 @@ services:
       CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
       RUN_INTERVAL: ${RUN_INTERVAL}
     volumes:
-      - ./config:/config:ro
+      - ./domains.json:/config/domains.json:ro
 ```
 
 ## Environment Variables
