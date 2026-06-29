@@ -9,4 +9,4 @@ services:
       CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
       RUN_INTERVAL: ${RUN_INTERVAL}
     volumes:
-      - ./config:/config:ro
+      - ./config/domains.json:/config/domains.json:ro

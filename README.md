@@ -30,7 +30,7 @@ services:
       CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
       RUN_INTERVAL: ${RUN_INTERVAL}
     volumes:
-      - ./domains.json:/config/domains.json:ro
+      - ./config/domains.json:/config/domains.json:ro
 ```
 
 ## Environment Variables
